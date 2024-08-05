@@ -1,0 +1,4 @@
+rootProject.name = 'mcengine-profile-public'
+
+include 'mcengine-profile-api'
+include 'spigotmc'
