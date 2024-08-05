@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-version = project.findProperty(project.name + '-version')
+version = project.findProperty("${project.name}-version") ?: 'unspecified'
 group = 'com.github.mcengine'
 
 allprojects {
@@ -16,7 +16,7 @@ allprojects {
     repositories {
         mavenCentral()
         mavenLocal()
-          maven {
+        maven {
             url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
 
             // As of Gradle 5.1, you can limit this to only those
@@ -33,12 +33,51 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
 
-    // Disable the 'jar' task
-    jar.enabled = false
+    // Disable the 'jar' task if needed
+    tasks.named('jar').configure {
+        enabled = false
+    }
 
-    // Get submodules info
-    version = project.findProperty(project.name + '-version')
+    // Get submodules info, ensure version property is not null
+    version = project.findProperty("${project.name}-version") ?: 'unspecified'
+
+	shadowJar {
+		archiveClassifier = null
+	}
+
+    if (project.name == 'mcengine-profile-api') {
+        // Publish to GitHub Packages
+        publishing {
+            repositories {
+                maven {
+                    name = 'GitHubPackages'
+                    url = uri('https://maven.pkg.github.com/MCEngine/mcengine')
+                    credentials {
+                        username = System.getenv('GIT_USER')
+                        password = System.getenv('MCENGINE_GITHUB_TOKEN_PKG')
+                    }
+                }
+            }
+            publications {
+                mavenJava(MavenPublication) {
+                    artifact(tasks.named('shadowJar').get())
+
+                    pom {
+                        name = 'MCEngine'
+                        url = 'https://github.com/MCEngine/mcengine'
+
+                        scm {
+                            connection = 'scm:git:git://github.com/MCEngine/mcengine.git'
+                            developerConnection = 'scm:git:ssh://github.com:MCEngine/mcengine.git'
+                            url = 'https://github.com/MCEngine/mcengine'
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     // Bukkit server
     if (project.name == 'spigot') {
@@ -59,41 +98,14 @@ dependencies {
     implementation project(path: ':spigotmc', configuration: 'shadow')
 }
 
-publishing {
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = uri('https://maven.pkg.github.com/MCEngine/mcengine')
-            credentials {
-                username = System.getenv('GIT_USER')
-                password = System.getenv('MCENGINE_GITHUB_TOKEN_PKG')
-            }
-        }
-    }
-    publications {
-        mavenJava(MavenPublication) {
-            from(components.java)
-            artifact shadowJar
-
-            pom {
-                name = 'MCEngine'
-                url = 'https://github.com/MCEngine/mcengine'
-                
-                scm {
-                    connection = 'scm:git:git://github.com/MCEngine/mcengine.git'
-                    developerConnection = 'scm:git:ssh://github.com:MCEngine/mcengine.git'
-                    url = 'https://github.com/MCEngine/mcengine'
-                }
-            }
-        }
-    }
-}
-
 shadowJar {
     version = version
     archiveClassifier = null
-    archiveBaseName.set('MCEngine')
+    archiveBaseName.set('MCEngineProfile')
 }
 
-jar.enabled = false
+// Disable the 'jar' task if needed
+tasks.named('jar').configure {
+    enabled = false
+}
 build.dependsOn(shadowJar)
