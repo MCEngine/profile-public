@@ -13,5 +13,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.mcengine:mcengine-api:1.0.0'
+    compileOnly 'com.github.mcengine:mcengine-api:1.0.0'
+    compileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
 }
