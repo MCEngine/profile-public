@@ -1,21 +1,24 @@
 package com.github.mcengine.api.listeners;
 
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import com.github.mcengine.api.MCEngineProfileMYSQL;
 
 import org.bukkit.entity.Player;
 
-public class MCEngineProfileListenerJoin {
+public class MCEngineProfileListenerJoin implements Listener {
     public static Class<?> dbClazz;
 
     public static void init(String className) {
-        dbClazz = MCEngineProfile.getClass(className);
+        try {
+            dbClazz = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            // Handle the exception or rethrow it
+        }
     }
 
     @EventHandler
@@ -23,8 +26,16 @@ public class MCEngineProfileListenerJoin {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         String table = "profiles";
-        int profileData = 0;
-        // get connection from main class
-        String rs = dbClazz.getProfile(uuid, table);
+        
+        try {
+            // Assume getProfile is a static method. If it's an instance method, you'll need to create an instance of dbClazz.
+            Method getProfileMethod = dbClazz.getMethod("getProfile", UUID.class, String.class);
+            String rs = (String) getProfileMethod.invoke(null, uuid, table);  // Use null for static method, or an instance of dbClazz for instance method
+            
+            // Process the result (rs) as needed
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception or rethrow it
+        }
     }
 }

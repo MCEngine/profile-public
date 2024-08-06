@@ -1,6 +1,7 @@
 package com.github.mcengine;
 
 import java.util.Optional;
+import java.lang.Class;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
