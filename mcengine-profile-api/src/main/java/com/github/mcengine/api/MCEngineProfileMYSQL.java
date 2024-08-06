@@ -11,6 +11,13 @@ public class MCEngineProfileMYSQL {
 
     public static void init(String host, String database, String user, String password, String port) {
         connection = MCEngineApiMYSQL.getConnection(host, database, user, password, port);
+        
+        String query = "CREATE TABLE IF NOT EXISTS profiles (uuid BINARY(16) PRIMARY KEY, profile_amount int)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating table", e);
+        }
     }
 
     public static void checkConnection() {
