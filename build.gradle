@@ -53,7 +53,7 @@ subprojects {
             repositories {
                 maven {
                     name = 'GitHubPackages'
-                    url = uri('https://maven.pkg.github.com/MCEngine/mcengine')
+                    url = uri('https://maven.pkg.github.com/MCEngine/profile-public')
                     credentials {
                         username = System.getenv('GIT_USER')
                         password = System.getenv('MCENGINE_GITHUB_TOKEN_PKG')
@@ -66,12 +66,12 @@ subprojects {
 
                     pom {
                         name = 'MCEngine'
-                        url = 'https://github.com/MCEngine/mcengine'
+                        url = 'https://github.com/MCEngine/profile-public'
 
                         scm {
-                            connection = 'scm:git:git://github.com/MCEngine/mcengine.git'
-                            developerConnection = 'scm:git:ssh://github.com:MCEngine/mcengine.git'
-                            url = 'https://github.com/MCEngine/mcengine'
+                            connection = 'scm:git:git://github.com/MCEngine/profile-public.git'
+                            developerConnection = 'scm:git:ssh://github.com:MCEngine/profile-public.git'
+                            url = 'https://github.com/MCEngine/profile-public'
                         }
                     }
                 }
