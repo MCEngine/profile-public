@@ -1,21 +1,35 @@
 package com.github.mcengine;
 
-import java.sql.Connection;
+import java.util.Optional;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.mcengine.api.MCEngineProfileMYSQL;
 
 public class MCEngineProfile extends JavaPlugin {
+    private static MCEngineProfile instance;
+
     public static Class<?> dbClazz;
 
+    // Function to get the Class object from a class name
+    public static Class<?> getClass(String className) {
+        try {
+            // Return the Class object associated with the class name
+            return Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static String getEnvOrConfig(String envVarName, String configKey) {
         String value = System.getenv(envVarName);
-        return Optional.ofNullable(value).orElseGet(() -> getConfig().getString(configKey));
+        return Optional.ofNullable(value).orElseGet(() -> instance.getConfig().getString(configKey));
     }
 
     @Override
     public void onEnable() {
+        instance = this;
         String sqlType = getConfig().getString("sqlType");
 
         if (sqlType.equalsIgnoreCase("mysql")) {
@@ -33,15 +47,4 @@ public class MCEngineProfile extends JavaPlugin {
 
     @Override
     public void onDisable() {}
-
-    // Function to get the Class object from a class name
-    public static Class<?> getClass(String className) {
-        try {
-            // Return the Class object associated with the class name
-            return Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

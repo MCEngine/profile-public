@@ -21,8 +21,6 @@ public class MCEngineProfileMYSQL {
     }
 
     public static String getProfile(UUID uuid, String table) {
-        checkConnection(connection);
-
         String query = "SELECT * FROM " + table + " WHERE uuid = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -45,8 +43,6 @@ public class MCEngineProfileMYSQL {
     }
 
     public static void createProfile(UUID uuid, String table, String profileData) {
-        checkConnection(connection);
-
         String query = "INSERT INTO " + table + " (uuid, amount) VALUES (?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
