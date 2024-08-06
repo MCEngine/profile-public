@@ -36,11 +36,11 @@ public class MCEngineProfile extends JavaPlugin {
 
         if (sqlType.equalsIgnoreCase("mysql")) {
             dbClazz = getClass("com.github.mcengine.MCEngineApiMYSQL");
-            String DB_HOST = getEnvOrConfig("DB_HOST", "DB_HOST");
-            String DB_USER = getEnvOrConfig("DB_USER", "DB_USER");
-            String DB_PASS = getEnvOrConfig("DB_PASS", "DB_PASS");
-            String DB_PORT = getEnvOrConfig("DB_PORT", "DB_PORT");
-            String DB_NAME = getEnvOrConfig("DB_NAME", "DB_NAME");
+            String DB_HOST = getEnvOrConfig("DB_HOST", "DB.HOST");
+            String DB_USER = getEnvOrConfig("DB_USER", "DB.USER");
+            String DB_PASS = getEnvOrConfig("DB_PASS", "DB.PASS");
+            String DB_PORT = getEnvOrConfig("DB_PORT", "DB.PORT");
+            String DB_NAME = getEnvOrConfig("DB_NAME", "DB.NAME");
             MCEngineProfileMYSQL.init(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
             MCEngineProfileListenerJoin.init("com.github.mcengine.MCEngineApiMYSQL");
         } else {
