@@ -7,14 +7,20 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class MCEngineProfileMYSQL {
-    public static void checkConnection(Connection connection) {
+    public static Connection connection;
+
+    public static void getConnection(String host, String database, String user, String password, String port) {
+        connection = MCEngineApiMYSQL.getConnection(host, database, user, password, port);
+    }
+
+    public static void checkConnection() {
         if (connection == null) {
             // Handle null connection appropriately, e.g., throw an exception
             throw new IllegalArgumentException("Connection cannot be null");
         }
     }
 
-    public static String getProfile(UUID uuid, String table, Connection connection) {
+    public static String getProfile(UUID uuid, String table) {
         checkConnection(connection);
 
         String query = "SELECT * FROM " + table + " WHERE uuid = ?";
@@ -38,7 +44,7 @@ public class MCEngineProfileMYSQL {
         }
     }
 
-    public static void createProfile(UUID uuid, String table, String profileData, Connection connection) {
+    public static void createProfile(UUID uuid, String table, String profileData) {
         checkConnection(connection);
 
         String query = "INSERT INTO " + table + " (uuid, amount) VALUES (?, ?)";
