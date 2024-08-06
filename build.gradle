@@ -80,7 +80,7 @@ subprojects {
     }
 
     // Bukkit server
-    if (project.name == 'spigot') {
+    if (project.name == 'spigotmc') {
         // replace
         processResources {
             def props = [version: version]
