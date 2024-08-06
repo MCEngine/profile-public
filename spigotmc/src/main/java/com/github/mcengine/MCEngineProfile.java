@@ -40,7 +40,7 @@ public class MCEngineProfile extends JavaPlugin {
             String DB_PASS = getEnvOrConfig("DB_PASS", "DB_PASS");
             String DB_PORT = getEnvOrConfig("DB_PORT", "DB_PORT");
             String DB_NAME = getEnvOrConfig("DB_NAME", "DB_NAME");
-            MCEngineProfileMYSQL.getConnection(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
+            MCEngineProfileMYSQL.init(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
             MCEngineProfileListenerJoin.init("com.github.mcengine.MCEngineApiMYSQL");
         } else {
             getLogger().warning("Unsupported SQL type: " + sqlType);

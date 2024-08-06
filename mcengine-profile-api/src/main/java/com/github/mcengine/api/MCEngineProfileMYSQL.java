@@ -9,7 +9,7 @@ import java.util.UUID;
 public class MCEngineProfileMYSQL {
     public static Connection connection;
 
-    public static void getConnection(String host, String database, String user, String password, String port) {
+    public static void init(String host, String database, String user, String password, String port) {
         connection = MCEngineApiMYSQL.getConnection(host, database, user, password, port);
     }
 
