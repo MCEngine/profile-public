@@ -26,12 +26,16 @@ public class MCEngineProfileListenerJoin implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         String table = "profiles";
-        
+
         try {
             // Assume getProfile is a static method. If it's an instance method, you'll need to create an instance of dbClazz.
-            Method getProfileMethod = dbClazz.getMethod("getProfile", UUID.class, String.class);
-            String rs = (String) getProfileMethod.invoke(null, uuid, table);  // Use null for static method, or an instance of dbClazz for instance method
-            
+            Method getProfile = dbClazz.getMethod("getProfile", UUID.class, String.class);
+            String rs = (String) getProfile.invoke(null, uuid, table);  // Use null for static method, or an instance of dbClazz for instance method
+
+            if (rs == null) {
+                Method createProfile = dbClazz.getMethod("createProfile", UUID.class, String.class, String.class);
+                createProfile.invoke(null, uuid, table, 0);  // Use null for static method, or an instance of dbClazz for instance method
+            }
             // Process the result (rs) as needed
         } catch (Exception e) {
             e.printStackTrace();
