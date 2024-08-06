@@ -2,16 +2,6 @@ plugins {
     id 'java-library'
 }
 
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/MCEngine/mcengine")
-        credentials {
-            username = System.getenv("GIT_USER")
-            password = System.getenv("MCENGINE_GITHUB_TOKEN_PKG")
-        }
-    }
-}
-
 dependencies {
     compileOnly 'com.github.mcengine:mcengine-api:1.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
