@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.mcengine.api.MCEngineProfileMYSQL;
+import com.github.mcengine.api.listeners.MCEngineProfileListenerJoin;
 
 public class MCEngineProfile extends JavaPlugin {
     private static MCEngineProfile instance;
@@ -40,6 +41,7 @@ public class MCEngineProfile extends JavaPlugin {
             String DB_PORT = getEnvOrConfig("DB_PORT", "DB_PORT");
             String DB_NAME = getEnvOrConfig("DB_NAME", "DB_NAME");
             MCEngineProfileMYSQL.getConnection(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
+            MCEngineProfileListenerJoin.init("com.github.mcengine.MCEngineApiMYSQL");
         } else {
             getLogger().warning("Unsupported SQL type: " + sqlType);
         }

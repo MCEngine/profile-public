@@ -12,6 +12,12 @@ import com.github.mcengine.api.MCEngineProfileMYSQL;
 import org.bukkit.entity.Player;
 
 public class MCEngineProfileListenerJoin {
+    public static Class<?> dbClazz;
+
+    public static void init(String className) {
+        dbClazz = MCEngineProfile.getClass(className);
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -19,6 +25,6 @@ public class MCEngineProfileListenerJoin {
         String table = "profiles";
         int profileData = 0;
         // get connection from main class
-        String rs = MCEngineProfileMYSQL.getProfile(uuid, table);
+        String rs = dbClazz.getProfile(uuid, table);
     }
 }
