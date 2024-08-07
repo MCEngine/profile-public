@@ -20,21 +20,25 @@ public class MCEngineProfile extends JavaPlugin {
         String sqlType = getConfig().getString("sqlType");
 
         if (sqlType.equalsIgnoreCase("mysql")) {
-            try {
-                dbClazz = MCEngineApiUtil.getClass("com.github.mcengine.MCEngineApiMYSQL");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String DB_HOST = MCEngineApiUtil.getEnvOrConfig(instance, "DB_HOST", "DB.HOST");
-            String DB_USER = MCEngineApiUtil.getEnvOrConfig(instance, "DB_USER", "DB.USER");
-            String DB_PASS = MCEngineApiUtil.getEnvOrConfig(instance, "DB_PASS", "DB.PASS");
-            String DB_PORT = MCEngineApiUtil.getEnvOrConfig(instance, "DB_PORT", "DB.PORT");
-            String DB_NAME = MCEngineApiUtil.getEnvOrConfig(instance, "DB_NAME", "DB.NAME");
-            MCEngineProfileMYSQL.init(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
-            MCEngineProfileListenerJoin.init("com.github.mcengine.MCEngineApiMYSQL");
+            initMySQL();
         } else {
             getLogger().warning("Unsupported SQL type: " + sqlType);
         }
+    }
+
+    public static void initMySQL() {
+        try {
+            dbClazz = MCEngineApiUtil.getClass("com.github.mcengine.MCEngineApiMYSQL");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String DB_HOST = MCEngineApiUtil.getEnvOrConfig(instance, "DB_HOST", "DB.HOST");
+        String DB_USER = MCEngineApiUtil.getEnvOrConfig(instance, "DB_USER", "DB.USER");
+        String DB_PASS = MCEngineApiUtil.getEnvOrConfig(instance, "DB_PASS", "DB.PASS");
+        String DB_PORT = MCEngineApiUtil.getEnvOrConfig(instance, "DB_PORT", "DB.PORT");
+        String DB_NAME = MCEngineApiUtil.getEnvOrConfig(instance, "DB_NAME", "DB.NAME");
+        MCEngineProfileMYSQL.init(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
+        MCEngineProfileListenerJoin.init("com.github.mcengine.MCEngineApiMYSQL");
     }
 
     @Override
