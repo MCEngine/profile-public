@@ -68,4 +68,19 @@ public class MCEngineProfileMYSQL {
             // Consider throwing a custom exception or returning a specific error code
         }
     }
+
+    public static void createAlternativeProfile(UUID alternativeUuid, UUID uuid) {
+        String query = "INSERT INTO profile_alternative (alternative_uuid, uuid) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, alternativeUuid);
+            statement.setObject(2, uuid);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            // Handle the exception appropriately, e.g., log the error, return a boolean indicating success/failure
+            System.err.println("Error creating alternative profile: " + e.getMessage()); // Replace with proper logging
+            // Consider throwing a custom exception or returning a specific error code
+        }
+    }
 }
