@@ -11,12 +11,17 @@ public class MCEngineProfileMYSQL {
 
     public static void init(String host, String database, String user, String password, String port) {
         connection = MCEngineApiMYSQL.getConnection(host, database, user, password, port);
-        
-        String query = "CREATE TABLE IF NOT EXISTS profiles (uuid BINARY(16) PRIMARY KEY, profile_amount int)";
+
+        executeQueryInit("CREATE TABLE IF NOT EXISTS profile (uuid VARCHAR(36) PRIMARY KEY, inventory_data LONGBLOB)");
+        executeQueryInit("CREATE TABLE IF NOT EXISTS profile_alternative (alternative_uuid VARCHAR(36) PRIMARY KEY, uuid VARCHAR(36) FOREIGN KEY REFERENCES profile(uuid))");
+        executeQueryInit("CREATE TABLE IF NOT EXISTS profile_inventory (inventory_uuid VARCHAR(36) PRIMARY KEY, inventory_data LONGBLOB, alternative_uuid VARCHAR(36) FOREIGN KEY REFERENCES profile_alternative(alternative_uuid))");
+    }
+
+    public static void executeQueryInit(String query) {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error creating table", e);
+            throw new RuntimeException("Error executing query", e);
         }
     }
 
