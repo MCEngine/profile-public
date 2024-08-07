@@ -9,12 +9,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import org.bukkit.entity.Player;
 
+import com.github.mcengine.api.MCEngineApiUtil;
+
 public class MCEngineProfileListenerJoin implements Listener {
     public static Class<?> dbClazz;
 
     public static void init(String className) {
         try {
-            dbClazz = Class.forName(className);
+            dbClazz = MCEngineApiUtil.getClass(className);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             // Handle the exception or rethrow it
