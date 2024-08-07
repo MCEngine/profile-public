@@ -2,7 +2,7 @@
 
 |Plugin|Version|Link|Note|
 |-|-|-|-|
-|MCEngine|1.0.1|[Link](https://github.com/MCEngine/mcengine/releases/tag/1.0.1)|Required|
+|MCEngine|1.1.0|[Link](https://github.com/MCEngine/mcengine/releases/tag/1.1.0)|Required|
 
 # `Warning`
 
