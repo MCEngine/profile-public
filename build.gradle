@@ -54,7 +54,7 @@ subprojects {
 		archiveClassifier = null
 	}
 
-    if (project.name == 'mcengine-profile-api') {
+    if (project.name == 'mcengine-profile-public-api') {
         // Publish to GitHub Packages
         publishing {
             repositories {
@@ -101,7 +101,7 @@ subprojects {
 }
 
 dependencies {
-    implementation project(path: ':mcengine-profile-api', configuration: 'shadow')
+    implementation project(path: ':mcengine-profile-public-api', configuration: 'shadow')
     implementation project(path: ':spigotmc', configuration: 'shadow')
 }
 
