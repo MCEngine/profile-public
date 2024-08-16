@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly project(':mcengine-profile-api')
+    compileOnly project(':mcengine-profile-public-api')
 
     compileOnly 'com.github.mcengine:mcengine-api:1.1.0'
     compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT'
