@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    compileOnly 'com.github.mcengine:mcengine-api:1.1.0'
+    compileOnly 'io.github.mcengine:mcengine-api:1.1.0'
     compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT'
 }

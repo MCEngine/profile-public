@@ -1,4 +1,4 @@
-package com.github.mcengine.api.listeners;
+package io.github.mcengine.api.listeners;
 
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import org.bukkit.entity.Player;
 
-import com.github.mcengine.api.MCEngineApiUtil;
+import io.github.mcengine.api.MCEngineApiUtil;
 
 public class MCEngineProfileListenerJoin implements Listener {
     public static Class<?> dbClazz;

@@ -1,3 +1,3 @@
-package com.github.mcengine.api;
+package io.github.mcengine.api;
 
 public interface MCEngineProfileApi {}

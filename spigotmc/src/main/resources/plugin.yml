@@ -1,6 +1,6 @@
 name: MCEngineProfile
 version: ${version}
-main: com.github.mcengine.MCEngineProfile
+main: io.github.mcengine.MCEngineProfile
 author: MCEngine
 description: MCEngine Profile
 api-version: 1.18

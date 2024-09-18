@@ -1,13 +1,13 @@
-package com.github.mcengine;
+package io.github.mcengine;
 
 import java.util.Optional;
 import java.lang.Class;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.mcengine.api.MCEngineApiUtil;
-import com.github.mcengine.api.MCEngineProfileMYSQL;
-import com.github.mcengine.api.listeners.MCEngineProfileListenerJoin;
+import io.github.mcengine.api.MCEngineApiUtil;
+import io.github.mcengine.api.MCEngineProfileMYSQL;
+import io.github.mcengine.api.listeners.MCEngineProfileListenerJoin;
 
 public class MCEngineProfile extends JavaPlugin {
     private static MCEngineProfile instance;
